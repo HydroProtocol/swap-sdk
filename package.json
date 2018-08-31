@@ -1,0 +1,34 @@
+{
+  "name": "@hydro-protocol/swap-sdk",
+  "version": "1.0.0",
+  "description": "Javascript SDK for Hydro Swap",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "tsc"
+  },
+  "dependencies": {
+    "penpal": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^9.4.6",
+    "typescript": "^2.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HydroProtocol/swap-sdk.git"
+  },
+  "keywords": [
+    "hydro",
+    "hydro-protocol",
+    "sdk",
+    "swap"
+  ],
+  "author": "Kevin West",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HydroProtocol/swap-sdk/issues"
+  },
+  "homepage": "https://github.com/HydroProtocol/swap-sdk#readme"
+}
