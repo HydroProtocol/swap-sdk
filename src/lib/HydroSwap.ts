@@ -1,11 +1,12 @@
 import Penpal from "penpal";
+import CustomWallet from "./CustomWallet";
 
 type Wallet = "metamask" | "ledger" | "custom";
 
 /**
  *
  */
-export class HydroSwap {
+export default class HydroSwap {
   private static BASE_URL: string = "https://widget.hydroprotocol.io";
 
   private id: string;
@@ -14,8 +15,7 @@ export class HydroSwap {
   private defaultWallet?: Wallet;
   private wallets?: Wallet[];
 
-  private sign?: (message: string) => Promise<string>;
-  private getAddress?: () => Promise<string>;
+  private customWallet?: CustomWallet;
 
   constructor(id: string) {
     this.id = id;
@@ -49,22 +49,12 @@ export class HydroSwap {
         url: url.href,
         appendTo: rounded,
         methods: {
-          sign: async (message: string) => {
-            if (!this.sign) {
-              throw new Error(
-                "If requesting a custom wallet, you must define a sign handler"
-              );
-            }
-            return await this.sign(message);
-          },
-          getAddress: async () => {
-            if (!this.getAddress) {
-              throw new Error(
-                "If requesting a custom wallet, you must define a getAddress handler"
-              );
-            }
-            return await this.getAddress();
-          }
+          signTransaction: (txData: any): Promise<any> =>
+            this.getCustomWallet().signTransaction(txData),
+          getAccounts: (): Promise<string[]> =>
+            this.getCustomWallet().getAccounts(),
+          getIconURL: (): string => this.getCustomWallet().iconURL,
+          getName: (): string => this.getCustomWallet().name
         }
       }).iframe;
     } else {
@@ -92,13 +82,15 @@ export class HydroSwap {
     return this;
   }
 
-  public handleSign(sign: (message: string) => Promise<string>) {
-    this.sign = sign;
+  public setCustomWallet(customWallet: CustomWallet) {
+    this.customWallet = customWallet;
     return this;
   }
 
-  public handleGetAddress(getAddress: () => Promise<string>) {
-    this.getAddress = getAddress;
-    return this;
+  private getCustomWallet(): CustomWallet {
+    if (!this.customWallet) {
+      throw new Error("Custom wallet handler must be defined.");
+    }
+    return this.customWallet;
   }
 }
