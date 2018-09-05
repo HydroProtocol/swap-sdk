@@ -6,7 +6,8 @@ type Network = "main" | "ropsten" | "local";
 type Wallet = "metamask" | "ledger" | "custom";
 
 /**
- *
+ * Main class for customizing the Hydro Swap widget, to be embedded into
+ * your page.
  */
 export default class HydroSwap {
   private id: string;
@@ -18,11 +19,19 @@ export default class HydroSwap {
 
   private customWallet?: CustomWallet;
 
+  /**
+   * @param id Your hydro swap id. This will define which market is used.
+   * @param network Optional - Which network to attach to. Generally used for testing.
+   */
   constructor(id: string, network?: Network) {
     this.id = id;
     this.network = network || "main";
   }
 
+  /**
+   * Attaches the Hydro Swap widget iframe to your document
+   * @param container The container to add the widget as a child
+   */
   public attach(container: HTMLElement) {
     let url = new URL(this.id, this.getBaseURL());
     let params = new URLSearchParams();
@@ -71,21 +80,40 @@ export default class HydroSwap {
     frame.style.height = frame.style.width = "100%";
   }
 
+  /**
+   * The default amount of token that will be pre-populated into the widget
+   * @param amount An amount of token, e.g. 100
+   */
   public setDefaultAmount(amount: number) {
     this.defaultAmount = amount;
     return this;
   }
 
+  /**
+   * The default wallet that will be selected in the dropdown. If nothing is
+   * specified, the first wallet from setWallets will be selected. If setWallets
+   * is not defined, it will default to Metamask.
+   * @param wallet The default wallet to be selected
+   */
   public setDefaultWallet(wallet: Wallet) {
     this.defaultWallet = wallet;
     return this;
   }
 
+  /**
+   * The list of wallets that will appear in the dropdown selector, in order
+   * @param wallets List of wallets
+   */
   public setWallets(wallets: Wallet[]) {
     this.wallets = wallets;
     return this;
   }
 
+  /**
+   * Handler for a custom wallet definition. If the wallets you set in setWallets
+   * includes "custom", this handler must be defined.
+   * @param customWallet A custom wallet handler
+   */
   public setCustomWallet(customWallet: CustomWallet) {
     this.customWallet = customWallet;
     return this;
