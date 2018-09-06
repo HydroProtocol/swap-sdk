@@ -3,7 +3,7 @@ import { Tx } from "web3/eth/types";
 import CustomWallet from "./CustomWallet";
 
 type Network = "main" | "ropsten" | "local";
-type Wallet = "metamask" | "ledger" | "custom";
+type Wallet = "browser" | "ledger" | "custom";
 
 /**
  * Main class for customizing the Hydro Swap widget, to be embedded into
@@ -92,7 +92,7 @@ export default class HydroSwap {
   /**
    * The default wallet that will be selected in the dropdown. If nothing is
    * specified, the first wallet from setWallets will be selected. If setWallets
-   * is not defined, it will default to Metamask.
+   * is not defined, it will default to Browser.
    * @param wallet The default wallet to be selected
    */
   public setDefaultWallet(wallet: Wallet) {
