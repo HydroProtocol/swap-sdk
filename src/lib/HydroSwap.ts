@@ -49,8 +49,6 @@ export default class HydroSwap {
     const rounded = document.createElement("div");
     rounded.style.background = "white";
     rounded.style.borderRadius = "5px";
-    rounded.style.height = "465px";
-    rounded.style.width = "488px";
     rounded.style.overflow = "hidden";
     container.appendChild(rounded);
 
@@ -78,6 +76,19 @@ export default class HydroSwap {
     frame.scrolling = "no";
     frame.style.border = "0";
     frame.style.height = frame.style.width = "100%";
+
+    const responsive = (query: MediaQueryList) => {
+      if (query.matches) {
+        rounded.style.width = "100%";
+        rounded.style.height = "553px";
+      } else {
+        rounded.style.width = "488px";
+        rounded.style.height = "465px";
+      }
+    };
+    let q = window.matchMedia("(max-width: 487px)");
+    responsive(q);
+    q.addListener(responsive);
   }
 
   /**
