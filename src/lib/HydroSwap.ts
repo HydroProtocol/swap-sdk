@@ -2,8 +2,8 @@ import Penpal from "penpal";
 import { Tx } from "web3/eth/types";
 import CustomWallet from "./CustomWallet";
 
-type Network = "main" | "ropsten" | "local";
-type Wallet = "browser" | "ledger" | "custom";
+export type Network = "main" | "ropsten" | string;
+export type WalletType = "browser" | "ledger" | "custom";
 
 /**
  * Main class for customizing the Hydro Swap widget, to be embedded into
@@ -14,8 +14,8 @@ export default class HydroSwap {
   private network: Network;
 
   private defaultAmount?: number;
-  private defaultWallet?: Wallet;
-  private wallets?: Wallet[];
+  private defaultWallet?: WalletType;
+  private wallets?: WalletType[];
 
   private customWallet?: CustomWallet;
 
@@ -106,7 +106,7 @@ export default class HydroSwap {
    * is not defined, it will default to Browser.
    * @param wallet The default wallet to be selected
    */
-  public setDefaultWallet(wallet: Wallet) {
+  public setDefaultWallet(wallet: WalletType) {
     this.defaultWallet = wallet;
     return this;
   }
@@ -115,7 +115,7 @@ export default class HydroSwap {
    * The list of wallets that will appear in the dropdown selector, in order
    * @param wallets List of wallets
    */
-  public setWallets(wallets: Wallet[]) {
+  public setWallets(wallets: WalletType[]) {
     this.wallets = wallets;
     return this;
   }
@@ -143,8 +143,8 @@ export default class HydroSwap {
         return "https://widget.hydroprotocol.io";
       case "ropsten":
         return "https://widget-ropsten.hydroprotocol.io";
-      case "local":
-        return "https://localhost:4000";
+      default:
+        return this.network;
     }
   }
 }

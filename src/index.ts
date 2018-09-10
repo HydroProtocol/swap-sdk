@@ -1,5 +1,5 @@
-import HydroSwap from "./lib/HydroSwap";
+import HydroSwap, { WalletType, Network } from "./lib/HydroSwap";
 import CustomWallet from "./lib/CustomWallet";
 
 export default HydroSwap;
-export { CustomWallet };
+export { CustomWallet, Network, WalletType };
