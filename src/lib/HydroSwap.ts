@@ -71,6 +71,7 @@ export default class HydroSwap {
     } else {
       frame = document.createElement("iframe");
       frame.src = url.href;
+      rounded.appendChild(frame);
     }
 
     frame.scrolling = "no";
