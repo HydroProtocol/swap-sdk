@@ -1,6 +1,6 @@
 {
   "name": "@hydro-protocol/swap-sdk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Javascript SDK for Hydro Swap",
   "main": "build/index.js",
   "types": "build/index.d.ts",

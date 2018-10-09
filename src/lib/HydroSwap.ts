@@ -90,6 +90,8 @@ export default class HydroSwap {
     let q = window.matchMedia("(max-width: 487px)");
     responsive(q);
     q.addListener(responsive);
+
+    document.body.addEventListener("click", this.postClick(frame));
   }
 
   /**
@@ -148,4 +150,10 @@ export default class HydroSwap {
         return this.network;
     }
   }
+
+  private postClick = (frame: HTMLIFrameElement) => () => {
+    if (frame.contentWindow) {
+      frame.contentWindow.postMessage("click", this.getBaseURL());
+    }
+  };
 }
